@@ -10,10 +10,10 @@ clustering_agreement <- function(x, y = NULL,
   	
   method <- match.arg(method, several.ok = TRUE)
   tab <- if (is.null(y)) x else table(x, y) # contingency table
-  out <- numeric(length(method))
+  out <- vector("list", length(method))
   names(out) <- method
   for (m in method) 
-    out[m] <- switch(method,
+    out[[m]] <- switch(m,
       chi2 = chi2(tab), 
       rand = rand(tab), 
       adj_rand = adj_rand(tab), 
@@ -28,7 +28,7 @@ clustering_agreement <- function(x, y = NULL,
       van_dongen = van_dongen(tab), 
       mutual_info = mutual_info(tab)
     )
-  out
+  unlist(out)
 }
 
 
@@ -53,7 +53,7 @@ chi2 <- function(x, y = NULL) {
   rsum <- rowSums(tab)
   csum <- colSums(tab)
   E <- tcrossprod(rsum, csum) / n # expected counts
-  sum((m-E)^2 / E)
+  sum((tab-E)^2 / E)
 }
 
 
@@ -284,7 +284,7 @@ max_match <- function(x, y = NULL) {
 
 # Formula: D(C1, C2) = 2n - sum_i=1:k max_j m.ij - sum_j=1:l max_i m.ij
 
-van_dongen <- function(x, y) {
+van_dongen <- function(x, y = NULL) {
   tab <- if (is.null(y)) x else table(x, y)
   n <- sum(tab)
   rmax <- apply(tab, 1, max)
@@ -323,8 +323,9 @@ mutual_info <- function(x, y = NULL) {
   }
   Hx <- - sum(px * log2(px)) 
   Hy <- - sum(py * log2(py))
-  pxy <- tab / n 
-  I <- sum(pxy * log2(pxy / tcrossprod(px, py))) # mutual information (MI)
+  pxy <- tab[tab > 0] / n
+  Hxy <- - sum(pxy * log2(pxy))
+  I <- Hx + Hy - Hxy # mutual information (MI)
   SG <- I / sqrt(Hx * Hy) #normalized MI by Strehl & Ghosh (2002)
   FJ <- 2 * I / (Hx + Hy) #normalized MI by Fred & Jain (2003)
   VI <- Hx + Hy - 2 * I # Variation of Information by Meila (2003)
