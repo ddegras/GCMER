@@ -17,7 +17,7 @@ License: use_gpl3_license()
 Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp
-Imports: Rcpp, cora
+Imports: Rcpp, cora, norm
 Suggests: highs
 SystemRequirements: GNU make
 NeedsCompilation: yes

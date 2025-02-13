@@ -15,6 +15,8 @@ export(
 "get_chromatic",
 "get_confusion", 
 "get_entity",
+"get_impute_parameters",
+"impute_NA",
 "is_valid_coloring",
 "jaccard",
 "make_adjmat",
@@ -28,6 +30,7 @@ export(
 "rand",
 "resolve_entities",
 "tpr",
+"transitive_closure",
 "van_dongen"
 )
 
