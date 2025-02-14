@@ -31,6 +31,7 @@ impute_NA_gaussian <- function(x, parameters) {
 	sigma <- parameters[["sigma"]]
 	p <- length(mu)
 	shrinkage <- 0.01
+	m <- mean(diag(sigma))
 	sigma <- (1 - shrinkage) * sigma + diag(shrinkage * m, p)
 	for (i in row_miss) {
 		obs <- which(!is.na(x[i,])) 
