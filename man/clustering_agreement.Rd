@@ -8,7 +8,9 @@ Measures of Agreement Between Two Clusterings
 Return multiple measures of clustering agreement between two clusterings 
 }
 \usage{
-clustering_agreement(x, y = NULL, method = c("chi2", "rand", "adj_rand", "fowlkes_mallow", "mirkin", "jaccard", "tpr", "fpr", "F_measure", "meila_heckerman", "max_match", "van_dongen", "mutual_info"))
+clustering_agreement(x, y = NULL, method = c("chi2", "rand", "adj_rand",
+	"fowlkes_mallow", "mirkin", "jaccard", "tpr", "fpr", "F_measure",
+	"meila_heckerman", "max_match", "van_dongen", "mutual_info"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,14 +18,15 @@ clustering_agreement(x, y = NULL, method = c("chi2", "rand", "adj_rand", "fowlke
 A vector representing the first clustering or a contingency table.
 }
   \item{y}{
-A vector of of same length as \code{x} representing the second clustering or \code{NULL} if \code{x} is a contigency table.
+A vector of of same length as \code{x} representing the second clustering or \code{NULL} if \code{x} is a contingency table.
 }
   \item{method}{
 String containing the clustering measure(s) to calculate.
 }
 }
 \details{
-The clustering agreement measures may be based on concordant/discordant pairs, set overlap, or information theory. See reference for specific details. 
+The clustering agreement measures may be based on concordant/discordant pairs, set overlap, or information theory. See reference for specific details. In the case of asymetric measures, \code{x} (or the rows of \code{x} if \code{y=NULL}) should refer to the true/optimal clustering.
+
 
 
 }
@@ -32,7 +35,7 @@ A named numeric vector containing clustering agreement measures.
 }
 \references{
 Wagner and Wagner (2007). Comparing Clusterings - An Overview. 
-\url{https://i11www.iti.kit.edu/extra/publications/ww-cco-06.pdf}
+\url{https://publikationen.bibliothek.kit.edu/1000011477/812079}
 }
 
 

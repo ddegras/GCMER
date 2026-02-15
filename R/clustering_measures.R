@@ -225,10 +225,7 @@ F_measure <- function(x, y = NULL) {
   n <- sum(tab)
   rsum <- rowSums(tab)
   csum <- colSums(tab)
-  nr <- nrow(tab)
-  nc <- ncol(tab)
-  den <- outer(rsum, csum, "+")
-  Fmat <- 2 * tab / den
+  Fmat <- 2 / outer(1/rsum, 1/csum, "+")
   sum(rsum * apply(Fmat, 1, max)) / n
 }
 
